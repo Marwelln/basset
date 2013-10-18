@@ -51,7 +51,7 @@ class FilterFactory extends Factory {
     {
         if ($filter instanceof Filter)
         {
-            return $filter;
+            return clone $filter;
         }
         
         $filter = isset($this->aliases[$filter]) ? $this->aliases[$filter] : $filter;
