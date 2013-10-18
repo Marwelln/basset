@@ -1,5 +1,5 @@
 {
-    "name": "marwelln/basset",
+    "name": "jasonlewis/basset",
     "description": "A better asset management package for Laravel.",
     "keywords": ["assets", "basset", "laravel"],
     "authors": [
