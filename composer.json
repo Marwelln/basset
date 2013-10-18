@@ -1,5 +1,5 @@
 {
-    "name": "jasonlewis/basset",
+    "name": "marwelln/basset",
     "description": "A better asset management package for Laravel.",
     "keywords": ["assets", "basset", "laravel"],
     "license": "BSD-2-Clause",
