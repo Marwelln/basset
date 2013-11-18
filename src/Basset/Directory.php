@@ -249,6 +249,10 @@ class Directory extends Filterable {
      */
     protected function processRequire(Iterator $iterator)
     {
+        // sort iterator by name
+        $iterator = new SortingIterator($iterator, 'strnatcasecmp');
+        dd($iterator);
+
         // Spin through each of the files within the iterator and if their a valid asset they
         // are added to the array of assets for this directory.
         foreach ($iterator as $file)
