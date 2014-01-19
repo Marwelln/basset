@@ -379,7 +379,7 @@ class Asset extends Filterable {
      */
     public function getContent()
     {
-        return file_get_contents($this->absolutePath);
+        return $this->files->get($this->absolutePath);
     }
 
     /**
