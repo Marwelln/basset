@@ -50,6 +50,10 @@ Basset also ships with a facade which provides the static syntax for creating co
 
 ### Changes
 
+#### v4.0.1
+
+- Fixed error caused by latest commit to [Illuminate\Filesystem\Filesystem.php](https://github.com/laravel/framework/commit/73c3c18787838881b9a78b46c66f16f872d1214d).
+
 #### v4.0.0 Beta 3
 
 - Split the collections and aliases into their own configuration files.
