@@ -9,10 +9,15 @@ Basset is a better asset management package for the Laravel framework. Basset sh
 - [Basset on Packagist](https://packagist.org/packages/jasonlewis/basset)
 - [Basset on GitHub](https://github.com/jasonlewis/basset)
 
-To get the latest version of Basset simply require it in your `composer.json` file.
+To get the latest version of this forked Basset you need edit your `composer.json` to add my repository to the `repository` list and `"jasonlewis/basset": "dev-master"` to your `require`.
 
 ~~~
-"jasonlewis/basset": "dev-master"
+"repositories": [
+	{
+		"type":"vcs",
+		"url": "https://github.com/Marwelln/basset"
+	}
+],
 ~~~
 
 You'll then need to run `composer install` to download it and have the autoloader updated.
