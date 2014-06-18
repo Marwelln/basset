@@ -6,7 +6,7 @@ class FactoryManager extends Manager {
 
 	/**
 	 * Get a registered factory driver.
-	 * 
+	 *
 	 * @param  string  $factory
 	 * @return \Basset\Factory\Factory
 	 */
@@ -16,8 +16,16 @@ class FactoryManager extends Manager {
 	}
 
 	/**
+	 * Get the default driver (currently not in use)
+	 **/
+	public function getDefaultDriver()
+	{
+		return '';
+	}
+
+	/**
 	 * Create the asset factory driver.
-	 * 
+	 *
 	 * @return \Basset\Factory\AssetFactory
 	 */
 	public function createAssetDriver()
@@ -29,7 +37,7 @@ class FactoryManager extends Manager {
 
 	/**
 	 * Create the filter factory driver.
-	 * 
+	 *
 	 * @return \Basset\Factory\FilterFactory
 	 */
 	public function createFilterDriver()
@@ -45,7 +53,7 @@ class FactoryManager extends Manager {
 
 	/**
 	 * Set the logger and factory manager on the factory instance.
-	 * 
+	 *
 	 * @param  \Basset\Factory\Factory  $factory
 	 * @return \Basset\Factory\Factory
 	 */
@@ -58,7 +66,7 @@ class FactoryManager extends Manager {
 
 	/**
 	 * Get the log writer instance.
-	 * 
+	 *
 	 * @return \Illuminate\Log\Writer
 	 */
 	public function getLogger()
