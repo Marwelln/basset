@@ -50,6 +50,15 @@ Basset also ships with a facade which provides the static syntax for creating co
 
 ### Changes
 
+#### v4.0.3
+
+- Default collection have been disabled as default so packages can use Basset without getting an error about default collection.
+- Default Less filter is now using PHP version - Basset is mainly used as a PHP only version, so node.js should'nt be default requirement.
+
+#### v4.0.2
+
+- Update to keep up-to-date with latest Laravel changes.
+
 #### v4.0.1
 
 - Fixed error caused by latest commit to [Illuminate\Filesystem\Filesystem.php](https://github.com/laravel/framework/commit/73c3c18787838881b9a78b46c66f16f872d1214d).
