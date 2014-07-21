@@ -28,7 +28,7 @@ return array(
     
     'collections' => array(
 
-        'application' => function($collection)
+        /*'application' => function($collection)
         {
             // Switch to the stylesheets directory and require the "less" and "sass" directories.
             // These directories both have a filter applied to them so that the built
@@ -42,7 +42,7 @@ return array(
 
             $directory->apply('CssMin');
             $directory->apply('UriRewriteFilter');
-
+            
             // Switch to the javascripts directory and require the "coffeescript" directory. As
             // with the above directories we'll apply the CoffeeScript filter to the directory
             // so the built collection contains valid JS.
@@ -53,7 +53,7 @@ return array(
             });
 
             $directory->apply('JsMin');
-        }
+        }*/
 
     ),
 
@@ -179,7 +179,7 @@ return array(
             |
             */
 
-            'Less' => array('LessFilter', function($filter)
+            'Less' => array('LessphpFilter', function($filter)
             {
                 $filter->whenAssetIs('.*\.less')->findMissingConstructorArgs();
             }),
