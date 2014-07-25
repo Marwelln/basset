@@ -1,15 +1,12 @@
 ## Basset for Laravel 4
 
-[![Build Status](https://secure.travis-ci.org/jasonlewis/basset.png)](http://travis-ci.org/jasonlewis/basset)
-
 Basset is a better asset management package for the Laravel framework. Basset shares the same philosophy as Laravel. Development should be an enjoyable and fulfilling experience. When it comes to managing your assets it can become quite complex and a pain in the backside. These days developers are able to use a range of pre-processors such as Sass, Less, and CoffeeScript. Basset is able to handle the processing of these assets instead of relying on a number of individual tools.
 
 ### Installation
 
-- [Basset on Packagist](https://packagist.org/packages/jasonlewis/basset)
-- [Basset on GitHub](https://github.com/jasonlewis/basset)
+To get the latest version of this forked Basset you need edit your `composer.json`.
 
-To get the latest version of this forked Basset you need edit your `composer.json` to add my repository to the `repository` list and `"jasonlewis/basset": "dev-master"` to your `require`.
+First you need to add this forked version to your `repositories`.
 
 ~~~
 "repositories": [
@@ -20,21 +17,43 @@ To get the latest version of this forked Basset you need edit your `composer.jso
 ],
 ~~~
 
-You'll then need to run `composer install` to download it and have the autoloader updated.
+Second you need to add the package to your `require`.
 
-> Note that once Basset has a stable version tagged you should use a tagged release instead of the master branch.
+~~~
+"require": {
+	...
+	"jasonlewis/basset": "@stable"
+	...
+}
+~~~
+
+or
+
+~~~
+composer require jasonlewis/basset:@stable
+~~~
+
+You'll then need to run `composer update` to download it and have the autoloader updated.
 
 Once Basset is installed you need to register the service provider with the application. Open up `app/config/app.php` and find the `providers` key.
 
 ~~~
 'providers' => array(
-    
+    ...
     'Basset\BassetServiceProvider'
-
+    ...
 )
 ~~~
 
-Basset also ships with a facade which provides the static syntax for creating collections. You can register the facade in the `aliases` key of your `app/config/app.php` file.
+Basset also ships with a configuration file. To get it, run the `php artisan config:publish` command. It is recommended to use the configuration file for managing your collections.
+
+~~~
+php artisan config:publish jasonlewis/basset
+~~~
+
+You configuration will then be available at `app/config/packages/jasonlewis/basset/config.php`.
+
+Basset also ships with a facade which provides the static syntax for creating collections. You can register the facade in the `aliases` key of your `app/config/app.php` file. This is completely optional.
 
 ~~~
 'aliases' => array(
@@ -44,59 +63,37 @@ Basset also ships with a facade which provides the static syntax for creating co
 )
 ~~~
 
+### LESS
+
+If you are working with or want to work with LESS you need to add the `oyejorge/less.php` package to your `composer.json` file.
+
+~~~
+composer require oyejorge/less.php:@stable
+~~~
+
+You can then use it by adding `->apply('Less')` to your collection (see your published configuration file for more information).
+
+~~~
+...
+$collection->add('path/to/file.less')->apply('Less');
+...
+~~~
+
+### Minification (compression)
+
+If you want to minify (compress) your assets (CSS/LESS/JS) you need to add two packages, `mrclay/minify` and `natxet/CssMin`.
+
+~~~
+composer require mrclay/minify:~2.2
+composer require natxet/CssMin:~3.0
+~~~
+
+To use minification, you use `->apply('CssMin')` or `->apply('JsMin')`. Keep in mind though that minification will only run with the `production` environment. You will always have multiple files when working on your development environment for easier debugging.
+
+~~~
+php artisan basset:build --production
+~~~
+
 ### Documentation
 
 [View the official documentation](http://jasonlewis.me/code/basset/4.0).
-
-### Changes
-
-#### v4.0.3
-
-- Default collection have been disabled as default so packages can use Basset without getting an error about default collection.
-- Default Less filter is now using PHP version - Basset is mainly used as a PHP only version, so node.js should'nt be default requirement.
-
-#### v4.0.2
-
-- Update to keep up-to-date with latest Laravel changes.
-
-#### v4.0.1
-
-- Fixed error caused by latest commit to [Illuminate\Filesystem\Filesystem.php](https://github.com/laravel/framework/commit/73c3c18787838881b9a78b46c66f16f872d1214d).
-
-#### v4.0.0 Beta 3
-
-- Split the collections and aliases into their own configuration files.
-- Filter method chaining with syntactical sugar by prefixing with `and`, e.g., `andWhenProductionBuild()`.
-
-#### v4.0.0 Beta 2
-
-- Added logging when assets, directories, and filters are not found or fail to load.
-- Allow logging to be enabled or disabled via configuration.
-- Warn users when cURL is being used to detect an assets group.
-- Allow an array of filters to be applied to an asset.
-- Added `whenProductionBuild` and `whenDevelopmentBuild` as filter requirements.
-- `CssMin` and `JsMin` are only applied on a production build and not on the production environment.
-- Added `raw` method as an alias to `exclude`.
-- Entire directory or collection can be set as raw so original path is used instead of assets being built.
-- Development builds only happen for a collection that is used on the loaded request.
-- Added `rawOnEnvironment` to serve the asset raw on a given environment or environments.
-
-
-#### v4.0.0 Beta 1
-
-- Collections are displayed with `basset_javascripts()` and `basset_stylesheets()`.
-- Simplified the asset finding process.
-- Can no longer prefix paths with `path:` for an absolute path, use a relative path from public directory instead.
-- Requirements can be applied to filters to prevent application if certain conditions are not met.
-- Filters can find any missing constructor arguments such as the path to Node, Ruby, etc.
-- Default `application` collection is bundled.
-- `basset:compile` command is now `basset:build`.
-- Old collection builds are cleaned automatically but can be cleaned manually with `basset --tidy-up`.
-- Packages can be registered with `Basset::package()` and assets can be added using the familiar namespace syntax found throughout Laravel.
-- `Csso` support with `CssoFilter`.
-- Fixed issues with `UriRewriteFilter`.
-- Development collections are pre-built before every page load.
-- Build and serve pre-compressed collections.
-- Use custom format when displaying collections.
-- Added in Blade view helpers: `@javascripts`, `@stylesheets`, and `@assets`.
-- Assets maintain the order that they were added.
