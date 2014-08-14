@@ -4,32 +4,17 @@ This is a forked and relaunched version of the closed down project jasonlewis/ba
 
 Basset is a better asset management package for the Laravel framework. Basset shares the same philosophy as Laravel. Development should be an enjoyable and fulfilling experience. When it comes to managing your assets it can become quite complex and a pain in the backside. These days developers are able to use a range of pre-processors such as Sass, Less, and CoffeeScript. Basset is able to handle the processing of these assets instead of relying on a number of individual tools.
 
-### Installation
+### Installation (with composer)
 
-To get the latest version of this forked Basset you need edit your `composer.json`.
-
-First you need to add this forked version to your `repositories`.
-
-~~~
-"repositories": [
-	{
-		"type":"vcs",
-		"url": "https://github.com/Marwelln/basset"
-	}
-],
-~~~
-
-Second you need to add the package to your `require`.
+Add this to your `composer.json`
 
 ~~~
 "require": {
-	...
 	"jasonlewis/basset": "@stable"
-	...
 }
 ~~~
 
-or
+or add it with a command line
 
 ~~~
 composer require jasonlewis/basset:@stable
