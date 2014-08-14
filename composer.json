@@ -1,11 +1,15 @@
 {
-    "name": "jasonlewis/basset",
-    "description": "A better asset management package for Laravel.",
+    "name": "Marwelln/basset",
+    "description": "Easy asset management for Laravel 4.",
     "keywords": ["assets", "basset", "laravel"],
     "authors": [
         {
             "name": "Jason Lewis",
             "email": "jason.lewis1991@gmail.com"
+        },
+        {
+            "name": "Martin Mårtensson",
+            "email": "martin@redward.se"
         }
     ],
     "require": {
