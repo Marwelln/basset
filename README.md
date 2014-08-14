@@ -1,5 +1,3 @@
-### Notice
-
 This is a forked and relaunched version of the closed down project jasonlewis/basset.
 
 ## Basset for Laravel 4
