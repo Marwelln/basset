@@ -4,51 +4,8 @@ This is a forked and relaunched version of the closed down project jasonlewis/ba
 
 Basset is a better asset management package for the Laravel framework. Basset shares the same philosophy as Laravel. Development should be an enjoyable and fulfilling experience. When it comes to managing your assets it can become quite complex and a pain in the backside. These days developers are able to use a range of pre-processors such as Sass, Less, and CoffeeScript. Basset is able to handle the processing of these assets instead of relying on a number of individual tools.
 
-### Installation (with composer)
+- [Installation](https://github.com/Marwelln/basset/wiki/Installation)
 
-Add this to your `composer.json`
-
-~~~
-"require": {
-	"jasonlewis/basset": "@stable"
-}
-~~~
-
-or add it with a command line
-
-~~~
-composer require jasonlewis/basset:@stable
-~~~
-
-You'll then need to run `composer update` to download it and have the autoloader updated.
-
-Once Basset is installed you need to register the service provider with the application. Open up `app/config/app.php` and find the `providers` key.
-
-~~~
-'providers' => array(
-    ...
-    'Basset\BassetServiceProvider'
-    ...
-)
-~~~
-
-Basset also ships with a configuration file. To get it, run the `php artisan config:publish` command. It is recommended to use the configuration file for managing your collections.
-
-~~~
-php artisan config:publish jasonlewis/basset
-~~~
-
-You configuration will then be available at `app/config/packages/jasonlewis/basset/config.php`.
-
-Basset also ships with a facade which provides the static syntax for creating collections. You can register the facade in the `aliases` key of your `app/config/app.php` file. This is completely optional.
-
-~~~
-'aliases' => array(
-
-    'Basset' => 'Basset\Facade'
-
-)
-~~~
 
 ### LESS
 
