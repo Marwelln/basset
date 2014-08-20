@@ -7,6 +7,8 @@ Basset is a better asset management package for the Laravel framework. Basset sh
 - [Installation](https://github.com/Marwelln/basset/wiki/Installation)
 - [Usage (how to use Basset)](https://github.com/Marwelln/basset/wiki/Usage-(how-to-use-Basset))
 
+- [How does Basset work?](https://github.com/Marwelln/basset/wiki/How-does-Basset-work)
+
 
 ### LESS
 
