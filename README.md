@@ -38,7 +38,3 @@ To use minification, you use `->apply('CssMin')` or `->apply('JsMin')`. Keep in 
 ~~~
 php artisan basset:build --production
 ~~~
-
-### Documentation
-
-[View the official documentation](http://jasonlewis.me/code/basset/4.0).
