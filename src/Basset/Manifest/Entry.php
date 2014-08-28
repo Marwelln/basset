@@ -1,8 +1,8 @@
 <?php namespace Basset\Manifest;
 
 use Basset\Asset;
-use Illuminate\Support\Contracts\JsonableInterface;
-use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Contracts\Support\JsonableInterface;
+use Illuminate\Contracts\Support\ArrayableInterface;
 
 class Entry implements JsonableInterface, ArrayableInterface {
 
@@ -15,7 +15,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Development assets.
-     * 
+     *
      * @var array
      */
     protected $development = array();
@@ -35,7 +35,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Add a development asset.
-     * 
+     *
      * @param  string|\Basset\Asset  $value
      * @param  string  $fingerprint
      * @param  string  $group
@@ -57,7 +57,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Get a development assets build path.
-     * 
+     *
      * @param  string|\Basset\Asset  $value
      * @param  string  $group
      * @return null|string
@@ -70,13 +70,13 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
             $value = $value->getRelativePath();
         }
-        
+
         return isset($this->development[$group][$value]) ? $this->development[$group][$value] : null;
     }
 
     /**
      * Determine if the entry has a development asset.
-     * 
+     *
      * @param  string|\Basset\Asset  $value
      * @param  string  $group
      * @return bool
@@ -88,7 +88,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Get all or a subset of development assets.
-     * 
+     *
      * @param  string  $group
      * @return array
      */
@@ -99,7 +99,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Determine if the entry has any development assets.
-     * 
+     *
      * @param  string  $group
      * @return bool
      */
@@ -110,7 +110,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Reset the development assets.
-     * 
+     *
      * @param  string  $group
      * @return void
      */
@@ -151,7 +151,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Determine if entry has any fingerprints.
-     * 
+     *
      * @return bool
      */
     public function hasProductionFingerprints()
@@ -182,7 +182,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Reset a production fingerprint.
-     * 
+     *
      * @param  string  $group
      * @return void
      */
@@ -193,7 +193,7 @@ class Entry implements JsonableInterface, ArrayableInterface {
 
     /**
      * Reset all production fingerprints.
-     * 
+     *
      * @return void
      */
     public function resetProductionFingerprints()
