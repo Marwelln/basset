@@ -1,10 +1,10 @@
 <?php namespace Basset\Manifest;
 
 use Basset\Asset;
-use Illuminate\Contracts\Support\JsonableInterface;
-use Illuminate\Contracts\Support\ArrayableInterface;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Entry implements JsonableInterface, ArrayableInterface {
+class Entry implements Jsonable, Arrayable {
 
     /**
      * Entry fingerprints.
