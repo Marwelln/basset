@@ -18,7 +18,7 @@ class BassetServiceProvider extends ServiceProvider {
      *
      * @var string
      */
-    const VERSION = '4.0.0';
+    const VERSION = '5.0.0';
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -56,7 +56,7 @@ class BassetServiceProvider extends ServiceProvider {
         // Bassets operation but only when debugging is enabled.
         if ($this->app['config']->get('basset::debug', false))
         {
-            $this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/logs/basset.txt', 0, 'warning');
+            $this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/basset.txt', 0, 'warning');
         }
 
         // If debugging is disabled we'll use a null handler to essentially send all logged
