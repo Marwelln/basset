@@ -14,7 +14,7 @@ return array(
     | A default "application" collection is ready for immediate use. It makes
     | a couple of assumptions about your directory structure.
     |
-    | /public
+    | /resources
     |    /assets
     |        /stylesheets
     |            /less
@@ -25,7 +25,7 @@ return array(
     | You can overwrite this collection or remove it by publishing the config.
     |
     */
-    
+
     'collections' => array(
 
         /*'application' => function($collection)
@@ -42,7 +42,7 @@ return array(
 
             $directory->apply('CssMin');
             $directory->apply('UriRewriteFilter');
-            
+
             // Switch to the javascripts directory and require the "coffeescript" directory. As
             // with the above directories we'll apply the CoffeeScript filter to the directory
             // so the built collection contains valid JS.

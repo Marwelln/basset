@@ -83,7 +83,7 @@ class BassetServiceProvider extends ServiceProvider {
 
     /**
      * Register the Blade extensions with the compiler.
-     * 
+     *
      * @return void
      */
     protected function registerBladeExtensions()
@@ -93,21 +93,21 @@ class BassetServiceProvider extends ServiceProvider {
         $blade->extend(function($value, $compiler)
         {
             $matcher = $compiler->createMatcher('javascripts');
-            
+
             return preg_replace($matcher, '$1<?php echo basset_javascripts$2; ?>', $value);
         });
 
         $blade->extend(function($value, $compiler)
         {
             $matcher = $compiler->createMatcher('stylesheets');
-            
+
             return preg_replace($matcher, '$1<?php echo basset_stylesheets$2; ?>', $value);
         });
 
         $blade->extend(function($value, $compiler)
         {
             $matcher = $compiler->createMatcher('assets');
-            
+
             return preg_replace($matcher, '$1<?php echo basset_assets$2; ?>', $value);
         });
     }
@@ -127,14 +127,14 @@ class BassetServiceProvider extends ServiceProvider {
 
     /**
      * Register the asset finder.
-     * 
+     *
      * @return void
      */
     protected function registerAssetFinder()
     {
         $this->app['basset.finder'] = $this->app->share(function($app)
         {
-            return new AssetFinder($app['files'], $app['config'], $app['path.public']);
+            return new AssetFinder($app['files'], $app['config'], base_path() . '/resources/assets');
         });
     }
 
@@ -153,7 +153,7 @@ class BassetServiceProvider extends ServiceProvider {
 
     /**
      * Register the logger.
-     * 
+     *
      * @return void
      */
     protected function registerLogger()
@@ -231,7 +231,7 @@ class BassetServiceProvider extends ServiceProvider {
     public function registerCommands()
     {
         $this->registerBassetCommand();
-        
+
         $this->registerBuildCommand();
 
         $this->commands('command.basset', 'command.basset.build');
@@ -239,7 +239,7 @@ class BassetServiceProvider extends ServiceProvider {
 
     /**
      * Register the basset command.
-     * 
+     *
      * @return void
      */
     protected function registerBassetCommand()
@@ -252,7 +252,7 @@ class BassetServiceProvider extends ServiceProvider {
 
     /**
      * Register the build command.
-     * 
+     *
      * @return void
      */
     protected function registerBuildCommand()
