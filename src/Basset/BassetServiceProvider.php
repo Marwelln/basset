@@ -50,11 +50,13 @@ class BassetServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('marwelln/basset', 'basset', __DIR__.'/../');
+        $this->publishes([
+            __DIR__ . '/../config/config.php' => config_path('basset.php')
+        ]);
 
         // Tell the logger to use a rotating files setup to log problems encountered during
         // Bassets operation but only when debugging is enabled.
-        if ($this->app['config']->get('basset::debug', false))
+        if ($this->app['config']->get('basset.debug', false))
         {
             $this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/basset.txt', 0, 'warning');
         }
@@ -68,13 +70,13 @@ class BassetServiceProvider extends ServiceProvider {
             $this->app['basset.log']->getMonolog()->pushHandler($handler);
         }
 
-        $this->app->instance('basset.path.build', $this->app['path.public'].'/'.$this->app['config']->get('basset::build_path'));
+        $this->app->instance('basset.path.build', $this->app['path.public'].'/'.$this->app['config']->get('basset.build_path'));
 
         $this->registerBladeExtensions();
 
         // Collections can be defined as an array in the configuration file. We'll register
         // this array of collections with the environment.
-        $this->app['basset']->collections($this->app['config']->get('basset::collections'));
+        $this->app['basset']->collections($this->app['config']->get('basset.collections', []));
 
         // Load the local manifest that contains the fingerprinted paths to both production
         // and development builds.

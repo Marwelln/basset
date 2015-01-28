@@ -31,7 +31,7 @@ class AssetFinder {
 
     /**
      * Array of package namespace hints.
-     * 
+     *
      * @var array
      */
     protected $hints = array();
@@ -61,7 +61,7 @@ class AssetFinder {
      */
     public function find($name)
     {
-        $name = $this->config->get("basset::aliases.assets.{$name}", $name);
+        $name = $this->config->get("basset.aliases.assets.{$name}", $name);
 
         // Spin through an array of methods ordered by the priority of how an asset should be found.
         // Once we find a non-null path we'll return that path breaking from the loop.
@@ -150,7 +150,7 @@ class AssetFinder {
 
     /**
      * Find an asset by absolute path.
-     * 
+     *
      * @param  string  $name
      * @return null|string
      */
@@ -193,7 +193,7 @@ class AssetFinder {
 
     /**
      * Determine if within a working directory.
-     * 
+     *
      * @return bool
      */
     public function withinWorkingDirectory()
@@ -213,7 +213,7 @@ class AssetFinder {
 
     /**
      * Get the working directory stack.
-     * 
+     *
      * @return array
      */
     public function getDirectoryStack()
@@ -224,7 +224,7 @@ class AssetFinder {
     /**
      * Prefix the last directory from the stack or the public path if not
      * within a working directory
-     * 
+     *
      * @param  string  $path
      * @return string
      */
@@ -240,7 +240,7 @@ class AssetFinder {
 
     /**
      * Add a package namespace.
-     * 
+     *
      * @param  string  $namespace
      * @param  string  $package
      * @return void
@@ -263,7 +263,7 @@ class AssetFinder {
 
     /**
      * Get the public path.
-     * 
+     *
      * @return string
      */
     public function getPublicPath()

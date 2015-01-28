@@ -42,9 +42,9 @@ class FactoryManager extends Manager {
 	 */
 	public function createFilterDriver()
 	{
-		$aliases = $this->app['config']->get('basset::aliases.filters', array());
+		$aliases = $this->app['config']->get('basset.aliases.filters', array());
 
-		$node = $this->app['config']->get('basset::node_paths', array());
+		$node = $this->app['config']->get('basset.node_paths', array());
 
 		$filter = new FilterFactory($aliases, $node, $this->app['env']);
 

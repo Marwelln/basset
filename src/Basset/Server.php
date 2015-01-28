@@ -9,7 +9,7 @@ class Server {
 
     /**
      * Laravel application instance.
-     * 
+     *
      * @var \Illuminate\Foundation\Application
      */
     protected $app;
@@ -27,7 +27,7 @@ class Server {
 
     /**
      * Serve a collection where the group is determined by the the extension.
-     * 
+     *
      * @param  string  $collection
      * @param  string  $format
      * @return string
@@ -117,7 +117,7 @@ class Server {
 
     /**
      * Serve a development collection.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  string  $group
      * @param  string  $format
@@ -177,7 +177,7 @@ class Server {
 
     /**
      * Format an array of responses and return a string.
-     * 
+     *
      * @param  mixed  $args
      * @return string
      */
@@ -195,7 +195,7 @@ class Server {
 
     /**
      * Get a collection manifest entry.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @return \Basset\Manifest\Entry
      */
@@ -206,7 +206,7 @@ class Server {
 
     /**
      * Try the development build of a collection.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  string  $group
      * @return void
@@ -224,13 +224,13 @@ class Server {
 
     /**
      * Prefix the build path to a given path.
-     * 
+     *
      * @param  string  $path
      * @return string
      */
     protected function prefixBuildPath($path)
     {
-        if ($buildPath = $this->app['config']->get('basset::build_path'))
+        if ($buildPath = $this->app['config']->get('basset.build_path'))
         {
             $path = "{$buildPath}/{$path}";
         }
@@ -240,12 +240,12 @@ class Server {
 
     /**
      * Determine if the application is running in production mode.
-     * 
+     *
      * @return bool
      */
     protected function runningInProduction()
     {
-        return in_array($this->app['env'], (array) $this->app['config']->get('basset::production'));
+        return in_array($this->app['env'], (array) $this->app['config']->get('basset.production'));
     }
 
     /**
@@ -274,7 +274,7 @@ class Server {
 
     /**
      * Build the URL to an asset.
-     * 
+     *
      * @param  string  $path
      * @return string
      */
