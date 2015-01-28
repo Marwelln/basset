@@ -188,9 +188,7 @@ class BassetServiceProvider extends ServiceProvider {
     {
         $this->app['basset.manifest'] = $this->app->share(function($app)
         {
-            $meta = $app['config']->get('app.manifest');
-
-            return new Manifest($app['files'], $meta);
+            return new Manifest($app['files'], storage_path() . '/app');
         });
     }
 
