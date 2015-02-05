@@ -1,15 +1,15 @@
 <?php namespace Basset;
 
-use Illuminate\Log\Writer;
 use Basset\Builder\Builder;
-use Basset\Manifest\Manifest;
-use Monolog\Handler\NullHandler;
-use Basset\Console\BuildCommand;
-use Basset\Console\BassetCommand;
-use Basset\Factory\FactoryManager;
-use Monolog\Logger as MonologLogger;
 use Basset\Builder\FilesystemCleaner;
+use Basset\Console\BuildCommand;
+use Basset\Console\TidyUpCommand;
+use Basset\Factory\FactoryManager;
+use Basset\Manifest\Manifest;
+use Illuminate\Log\Writer;
 use Illuminate\Support\ServiceProvider;
+use Monolog\Handler\NullHandler;
+use Monolog\Logger as MonologLogger;
 
 class BassetServiceProvider extends ServiceProvider {
 
@@ -198,11 +198,12 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function registerCommands() {
-		$this->registerBassetCommand();
+		// Register a command for basset
+		$this->app['command.basset'] = $this->app->share(function($app) {
+			return new BuildCommand($app['basset'], $app['basset.builder'], $app['basset.builder.cleaner']);
+		});
 
-		$this->registerBuildCommand();
-
-		$this->commands('command.basset', 'command.basset.build');
+		$this->commands('command.basset');
 	}
 
 	/**
@@ -211,9 +212,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerBassetCommand() {
-		$this->app['command.basset'] = $this->app->share(function($app) {
-			return new BassetCommand($app['basset.manifest'], $app['basset'], $app['basset.builder.cleaner']);
-		});
+
 	}
 
 	/**
@@ -222,9 +221,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerBuildCommand() {
-		$this->app['command.basset.build'] = $this->app->share(function($app) {
-			return new BuildCommand($app['basset'], $app['basset.builder'], $app['basset.builder.cleaner']);
-		});
+
 	}
 
 }

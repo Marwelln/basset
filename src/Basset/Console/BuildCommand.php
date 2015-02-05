@@ -17,7 +17,7 @@ class BuildCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'basset:build';
+    protected $name = 'basset';
 
     /**
      * The console command description.
@@ -42,7 +42,7 @@ class BuildCommand extends Command {
 
     /**
      * Basset filesystem cleaner instance.
-     * 
+     *
      * @var \Basset\Builder\FilesystemCleaner
      */
     protected $cleaner;
@@ -109,7 +109,7 @@ class BuildCommand extends Command {
 
     /**
      * Dynamically handle calls to the build methods.
-     * 
+     *
      * @param  string  $method
      * @param  array  $parameters
      * @return mixed
