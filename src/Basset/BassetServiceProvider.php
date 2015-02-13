@@ -49,7 +49,7 @@ class BassetServiceProvider extends ServiceProvider {
 		// Tell the logger to use a rotating files setup to log problems encountered during
 		// Bassets operation but only when debugging is enabled.
 		if ($this->app['config']->get('basset.debug', false)) {
-			$this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/basset.txt', 0, 'warning');
+			$this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/logs/basset.log', 0, 'warning');
 		}
 
 		// If debugging is disabled we'll use a null handler to essentially send all logged
