@@ -81,22 +81,16 @@ class BassetServiceProvider extends ServiceProvider {
 	protected function registerBladeExtensions() {
 		$blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
-		$blade->extend(function($value, $compiler) {
-			$matcher = $compiler->createMatcher('javascripts');
-
-			return preg_replace($matcher, '$1<?php echo basset_javascripts$2; ?>', $value);
+		$blade->directive('javascripts', function($value){
+			return "<?php echo basset_javascripts($value); ?>";
 		});
 
-		$blade->extend(function($value, $compiler) {
-			$matcher = $compiler->createMatcher('stylesheets');
-
-			return preg_replace($matcher, '$1<?php echo basset_stylesheets$2; ?>', $value);
+		$blade->directive('stylesheets', function($value){
+			return "<?php echo basset_stylesheets($value); ?>";
 		});
 
-		$blade->extend(function($value, $compiler) {
-			$matcher = $compiler->createMatcher('assets');
-
-			return preg_replace($matcher, '$1<?php echo basset_assets$2; ?>', $value);
+		$blade->directive('assets', function($value){
+			return "<?php echo basset_assets($value); ?>";
 		});
 	}
 
