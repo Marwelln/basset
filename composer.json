@@ -24,7 +24,7 @@
 		"illuminate/log": "~5.0",
 		"illuminate/routing": "~5.0",
 		"illuminate/support": "~5.0",
-		"symfony/process": "~2.5"
+		"symfony/process": "~3.0"
 	},
 	"suggest": {
 		"aws/aws-sdk-php": "Deploy static assets directly to your S3 buckets.",
