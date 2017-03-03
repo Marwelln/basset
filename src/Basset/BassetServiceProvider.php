@@ -111,7 +111,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerAssetFinder() {
-		$this->app['basset.finder'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.finder', function($app) {
 			return new AssetFinder($app['files'], $app['config'], base_path() . '/resources/assets');
 		});
 	}
@@ -122,7 +122,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerServer() {
-		$this->app['basset.server'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.server', function($app) {
 			return new Server($app);
 		});
 	}
@@ -133,7 +133,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerLogger() {
-		$this->app['basset.log'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.log', function($app) {
 			return new Writer(new \Monolog\Logger('basset'), $app['events']);
 		});
 	}
@@ -144,7 +144,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerFactoryManager() {
-		$this->app['basset.factory'] = $this->app->share(function($app)	{
+		$this->app->singleton('basset.factory', function($app)	{
 			return new FactoryManager($app);
 		});
 	}
@@ -155,7 +155,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerManifest()	{
-		$this->app['basset.manifest'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.manifest', function($app) {
 			return new Manifest($app['files'], storage_path() . '/app');
 		});
 	}
@@ -166,11 +166,11 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerBuilder() {
-		$this->app['basset.builder'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.builder', function($app) {
 			return new Builder($app['files'], $app['basset.manifest'], $app['basset.path.build']);
 		});
 
-		$this->app['basset.builder.cleaner'] = $this->app->share(function($app) {
+		$this->app->singleton('basset.builder.cleaner', function($app) {
 			return new FilesystemCleaner($app['basset'], $app['basset.manifest'], $app['files'], $app['basset.path.build']);
 		});
 	}
@@ -181,7 +181,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	protected function registerBasset() {
-		$this->app['basset'] = $this->app->share(function($app) {
+		$this->app->singleton('basset', function($app) {
 			return new Environment($app['basset.factory'], $app['basset.finder']);
 		});
 	}
@@ -193,7 +193,7 @@ class BassetServiceProvider extends ServiceProvider {
 	 */
 	public function registerCommands() {
 		// Register a command for basset
-		$this->app['command.basset'] = $this->app->share(function($app) {
+		$this->app->singleton('command.basset', function($app) {
 			return new BuildCommand($app['basset'], $app['basset.builder'], $app['basset.builder.cleaner']);
 		});
 
