@@ -1,43 +1,53 @@
 {
-	"name": "marwelln/basset",
-	"description": "Easy asset management for Laravel 5.",
-	"keywords": ["assets", "basset", "laravel"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Jason Lewis",
-			"email": "jason.lewis1991@gmail.com"
-		},
-		{
-			"name": "Martin Mårtensson",
-			"email": "martin@redward.se"
-		}
-	],
-	"require": {
-		"kriswallsmith/assetic": "~1.0"
-	},
-	"require-dev": {
-		"mockery/mockery": ">=0.7.2",
-		"illuminate/config": "~5.0",
-		"illuminate/console": "~5.0",
-		"illuminate/filesystem": "~5.0",
-		"illuminate/log": "~5.0",
-		"illuminate/routing": "~5.0",
-		"illuminate/support": "~5.0",
-		"symfony/process": "~3.0"
-	},
-	"suggest": {
-		"aws/aws-sdk-php": "Deploy static assets directly to your S3 buckets.",
-		"rackspace/php-cloudfiles": "Deploy static assets directly to your Cloud Files container."
-	},
-	"autoload": {
-		"psr-0": {
-			"Basset": "src/"
-		},
-		"classmap": [
-			"tests/Cases/FilterTestCase.php"
-		],
-		"files": ["src/helpers.php"]
-	},
-	"minimum-stability": "stable"
+    "name": "marwelln/basset",
+    "description": "Easy asset management for Laravel 5.",
+    "keywords": ["assets", "basset", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Lewis",
+            "email": "jason.lewis1991@gmail.com"
+        },
+        {
+            "name": "Martin Mårtensson",
+            "email": "martin@redward.se"
+        }
+    ],
+    "require": {
+        "kriswallsmith/assetic": "~1.0"
+    },
+    "require-dev": {
+        "mockery/mockery": ">=0.7.2",
+        "illuminate/config": "~5.0",
+        "illuminate/console": "~5.0",
+        "illuminate/filesystem": "~5.0",
+        "illuminate/log": "~5.0",
+        "illuminate/routing": "~5.0",
+        "illuminate/support": "~5.0",
+        "symfony/process": "~3.0"
+    },
+    "suggest": {
+        "aws/aws-sdk-php": "Deploy static assets directly to your S3 buckets.",
+        "rackspace/php-cloudfiles": "Deploy static assets directly to your Cloud Files container."
+    },
+    "autoload": {
+        "psr-0": {
+            "Basset": "src/"
+        },
+        "classmap": [
+            "tests/Cases/FilterTestCase.php"
+        ],
+        "files": ["src/helpers.php"]
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basset\\VassetServiceProvider"
+            ],
+            "aliases": {
+                "Basset": "Basset\\Facade"
+            }
+        }
+    }
 }

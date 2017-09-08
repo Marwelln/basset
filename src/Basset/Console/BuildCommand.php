@@ -69,7 +69,7 @@ class BuildCommand extends Command {
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $this->input->getOption('force') and $this->builder->setForce(true);
 

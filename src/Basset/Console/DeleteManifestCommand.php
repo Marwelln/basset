@@ -47,7 +47,7 @@ class DeleteManifestCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function fire() {
+	public function handle() {
  		if ($this->manifest->delete())
 			$this->info('Manifest has been deleted. All collections will are now required to be rebuilt.');
 		else
