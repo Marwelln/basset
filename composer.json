@@ -43,7 +43,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Basset\\VassetServiceProvider"
+                "Basset\\BassetServiceProvider"
             ],
             "aliases": {
                 "Basset": "Basset\\Facade"
