@@ -27,13 +27,6 @@
         "symfony/process": "~4.0"
     },
 
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Marwelln/assetic"
-        }
-    ],
-
     "suggest": {
         "aws/aws-sdk-php": "Deploy static assets directly to your S3 buckets.",
         "rackspace/php-cloudfiles": "Deploy static assets directly to your Cloud Files container."
