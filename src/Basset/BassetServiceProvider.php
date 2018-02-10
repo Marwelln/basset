@@ -6,7 +6,7 @@ use Basset\Console\BuildCommand;
 use Basset\Console\TidyUpCommand;
 use Basset\Factory\FactoryManager;
 use Basset\Manifest\Manifest;
-use Illuminate\Log\Writer;
+use Illuminate\Log\Logger;
 use Illuminate\Support\ServiceProvider;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger as MonologLogger;
@@ -38,23 +38,15 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Bootstrap the application events.
-	 *
-	 * @return void
 	 */
-	public function boot() {
+	public function boot() : void {
 		$this->publishes([
 			__DIR__ . '/../config/config.php' => config_path('basset.php')
 		]);
 
-		// Tell the logger to use a rotating files setup to log problems encountered during
-		// Bassets operation but only when debugging is enabled.
-		if ($this->app['config']->get('basset.debug', false)) {
-			$this->app['basset.log']->useDailyFiles($this->app['path.storage'].'/logs/basset.log', 0, 'warning');
-		}
-
 		// If debugging is disabled we'll use a null handler to essentially send all logged
 		// messages into a blackhole.
-		else {
+		if ( ! $this->app['config']->get('basset.debug', false)) {
 			$handler = new NullHandler(MonologLogger::WARNING);
 
 			$this->app['basset.log']->getMonolog()->pushHandler($handler);
@@ -75,10 +67,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the Blade extensions with the compiler.
-	 *
-	 * @return void
 	 */
-	protected function registerBladeExtensions() {
+	protected function registerBladeExtensions() : void {
 		$blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
 		$blade->directive('javascripts', function($value){
@@ -96,10 +86,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
-	 *
-	 * @return void
 	 */
-	public function register() {
+	public function register() : void {
 		foreach ($this->components as $component) {
 			$this->{'register'.$component}();
 		}
@@ -107,10 +95,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the asset finder.
-	 *
-	 * @return void
 	 */
-	protected function registerAssetFinder() {
+	protected function registerAssetFinder() : void {
 		$this->app->singleton('basset.finder', function($app) {
 			return new AssetFinder($app['files'], $app['config'], base_path() . '/resources/assets');
 		});
@@ -118,10 +104,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the collection server.
-	 *
-	 * @return void
 	 */
-	protected function registerServer() {
+	protected function registerServer() : void {
 		$this->app->singleton('basset.server', function($app) {
 			return new Server($app);
 		});
@@ -129,21 +113,17 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the logger.
-	 *
-	 * @return void
 	 */
-	protected function registerLogger() {
+	protected function registerLogger() : void {
 		$this->app->singleton('basset.log', function($app) {
-			return new Writer(new \Monolog\Logger('basset'), $app['events']);
+			return new Logger(new \Monolog\Logger('basset'), $app['events']);
 		});
 	}
 
 	/**
 	 * Register the factory manager.
-	 *
-	 * @return void
 	 */
-	protected function registerFactoryManager() {
+	protected function registerFactoryManager() : void {
 		$this->app->singleton('basset.factory', function($app)	{
 			return new FactoryManager($app);
 		});
@@ -151,10 +131,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the collection repository.
-	 *
-	 * @return void
 	 */
-	protected function registerManifest()	{
+	protected function registerManifest() : void {
 		$this->app->singleton('basset.manifest', function($app) {
 			return new Manifest($app['files'], storage_path() . '/app');
 		});
@@ -162,10 +140,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the collection builder.
-	 *
-	 * @return void
 	 */
-	protected function registerBuilder() {
+	protected function registerBuilder() : void {
 		$this->app->singleton('basset.builder', function($app) {
 			return new Builder($app['files'], $app['basset.manifest'], $app['basset.path.build']);
 		});
@@ -177,10 +153,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the basset environment.
-	 *
-	 * @return void
 	 */
-	protected function registerBasset() {
+	protected function registerBasset() : void {
 		$this->app->singleton('basset', function($app) {
 			return new Environment($app['basset.factory'], $app['basset.finder']);
 		});
@@ -188,10 +162,8 @@ class BassetServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the commands.
-	 *
-	 * @return void
 	 */
-	public function registerCommands() {
+	public function registerCommands() : void {
 		// Register a command for basset
 		$this->app->singleton('command.basset', function($app) {
 			return new BuildCommand($app['basset'], $app['basset.builder'], $app['basset.builder.cleaner']);

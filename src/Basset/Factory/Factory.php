@@ -1,13 +1,13 @@
 <?php namespace Basset\Factory;
 
-use Illuminate\Log\Writer;
+use Illuminate\Log\Logger;
 
 abstract class Factory {
 
 	/**
 	 * Illuminate log writer instance.
 	 * 
-	 * @var \Illuminate\Log\Writer
+	 * @var \Illuminate\Log\Logger
 	 */
 	protected $log;
 
@@ -21,10 +21,10 @@ abstract class Factory {
 	/**
 	 * Set the log writer instance.
 	 * 
-	 * @param  \Illuminate\Log\Writer  $log
+	 * @param  \Illuminate\Log\Logger  $log
 	 * @return \Basset\Factory\Factory
 	 */
-	public function setLogger(Writer $log)
+	public function setLogger(Logger $log)
 	{
 		$this->log = $log;
 

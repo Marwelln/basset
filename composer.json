@@ -14,18 +14,26 @@
         }
     ],
     "require": {
-        "kriswallsmith/assetic": "~1.0"
+        "kriswallsmith/assetic": "~1.4.1"
     },
     "require-dev": {
         "mockery/mockery": ">=0.7.2",
         "illuminate/config": "~5.0",
         "illuminate/console": "~5.0",
         "illuminate/filesystem": "~5.0",
-        "illuminate/log": "~5.0",
+        "illuminate/log": "~5.6",
         "illuminate/routing": "~5.0",
         "illuminate/support": "~5.0",
-        "symfony/process": "~3.0"
+        "symfony/process": "~4.0"
     },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Marwelln/assetic"
+        }
+    ],
+
     "suggest": {
         "aws/aws-sdk-php": "Deploy static assets directly to your S3 buckets.",
         "rackspace/php-cloudfiles": "Deploy static assets directly to your Cloud Files container."

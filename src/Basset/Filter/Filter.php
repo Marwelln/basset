@@ -4,7 +4,7 @@ use Closure;
 use Basset\Asset;
 use ReflectionClass;
 use ReflectionException;
-use Illuminate\Log\Writer;
+use Illuminate\Log\Logger;
 use Assetic\Filter\FilterInterface;
 use Symfony\Component\Process\ExecutableFinder;
 
@@ -76,7 +76,7 @@ class Filter {
     /**
      * Illuminate log writer instance.
      * 
-     * @var \Illuminate\Log\Writer
+     * @var \Illuminate\Log\Logger
      */
     protected $log;
 
@@ -90,13 +90,13 @@ class Filter {
     /**
      * Create a new filter instance.
      *
-     * @param  \Illuminate\Log\Writer  $log
+     * @param  \Illuminate\Log\Logger  $log
      * @param  string  $filter
      * @param  array  $nodePaths
      * @param  string  $appEnvironment
      * @return void
      */
-    public function __construct(Writer $log, $filter, array $nodePaths, $appEnvironment)
+    public function __construct(Logger $log, $filter, array $nodePaths, $appEnvironment)
     {
         $this->log = $log;
         $this->filter = $filter;

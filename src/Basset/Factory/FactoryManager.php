@@ -67,7 +67,7 @@ class FactoryManager extends Manager {
 	/**
 	 * Get the log writer instance.
 	 *
-	 * @return \Illuminate\Log\Writer
+	 * @return \Illuminate\Log\Logger
 	 */
 	public function getLogger()
 	{
