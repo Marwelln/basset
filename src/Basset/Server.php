@@ -162,7 +162,7 @@ class Server {
     /**
      * Prefix the build path to a given path.
      */
-    protected function prefixBuildPath(string $path) : stirng {
+    protected function prefixBuildPath(string $path) : string {
         if ($buildPath = $this->app['config']->get('basset.build_path')) {
             $path = "{$buildPath}/{$path}";
         }
