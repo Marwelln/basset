@@ -18,22 +18,15 @@ class Server {
      * Create a new output server instance.
      *
      * @param  \Illuminate\Foundation\Application
-     * @return void
      */
-    public function __construct($app)
-    {
+    public function __construct($app) {
         $this->app = $app;
     }
 
     /**
      * Serve a collection where the group is determined by the the extension.
-     *
-     * @param  string  $collection
-     * @param  string  $format
-     * @return string
      */
-    public function collection($collection, $format = null)
-    {
+    public function collection(string $collection, ?string $format = null) : string {
         list($collection, $extension) = preg_split('/\.(css|js)/', $collection, 2, PREG_SPLIT_DELIM_CAPTURE);
 
         $group = $extension == 'css' ? 'stylesheets' : 'javascripts';
@@ -43,40 +36,23 @@ class Server {
 
     /**
      * Serve the stylesheets for a given collection.
-     *
-     * @param  string  $collection
-     * @param  string  $format
-     * @return string
      */
-    public function stylesheets($collection, $format = null)
-    {
+    public function stylesheets(string $collection, ?string $format = null) : string {
         return $this->serve($collection, 'stylesheets', $format);
     }
 
     /**
      * Serve the javascripts for a given collection.
-     *
-     * @param  string  $collection
-     * @param  string  $format
-     * @return string
      */
-    public function javascripts($collection, $format = null)
-    {
+    public function javascripts(string $collection, ?string $format = null) : string {
         return $this->serve($collection, 'javascripts', $format);
     }
 
     /**
      * Serve a given group for a collection.
-     *
-     * @param  string  $collection
-     * @param  string  $group
-     * @param  string  $format
-     * @return string
      */
-    public function serve($collection, $group, $format = null)
-    {
-        if ( ! isset($this->app['basset'][$collection]))
-        {
+    public function serve(string $collection, string $group, ?string $format = null) : string {
+        if ( ! isset($this->app['basset'][$collection])) {
             return '<!-- Basset could not find collection: '.$collection.' -->';
         }
 
@@ -85,10 +61,8 @@ class Server {
         // manfiest of fingerprints.
         $collection = $this->app['basset'][$collection];
 
-        if ($this->runningInProduction() and $this->app['basset.manifest']->has($collection))
-        {
-            if ($this->app['basset.manifest']->get($collection)->hasProductionFingerprint($group))
-            {
+        if ($this->runningInProduction() and $this->app['basset.manifest']->has($collection)) {
+            if ($this->app['basset.manifest']->get($collection)->hasProductionFingerprint($group)) {
                 return $this->serveProductionCollection($collection, $group, $format);
             }
         }
@@ -98,14 +72,8 @@ class Server {
 
     /**
      * Serve a production collection.
-     *
-     * @param  \Basset\Collection  $collection
-     * @param  string  $group
-     * @param  string  $format
-     * @return array
      */
-    protected function serveProductionCollection(Collection $collection, $group, $format)
-    {
+    protected function serveProductionCollection(Collection $collection, string $group, ?string $format) : string {
         $entry = $this->getCollectionEntry($collection);
 
         $fingerprint = $entry->getProductionFingerprint($group);
@@ -117,14 +85,8 @@ class Server {
 
     /**
      * Serve a development collection.
-     *
-     * @param  \Basset\Collection  $collection
-     * @param  string  $group
-     * @param  string  $format
-     * @return array
      */
-    protected function serveDevelopmentCollection(Collection $collection, $group, $format)
-    {
+    protected function serveDevelopmentCollection(Collection $collection, string $group, ?string $format) : string {
         $identifier = $collection->getIdentifier();
 
         // Before we fetch the collections manifest entry we'll try to build the collection
@@ -136,14 +98,10 @@ class Server {
 
         $responses = array();
 
-        foreach ($collection->getAssetsWithRaw($group) as $asset)
-        {
-            if ( ! $asset->isRaw() and $path = $entry->getDevelopmentAsset($asset))
-            {
+        foreach ($collection->getAssetsWithRaw($group) as $asset) {
+            if ( ! $asset->isRaw() and $path = $entry->getDevelopmentAsset($asset)) {
                 $path = $this->prefixBuildPath($identifier.'/'.$path);
-            }
-            else
-            {
+            } else {
                 $path = $asset->getRelativePath();
             }
 
@@ -155,18 +113,11 @@ class Server {
 
     /**
      * Serve a collections raw assets.
-     *
-     * @param  \Basset\Collection  $collection
-     * @param  string  $group
-     * @param  string  $format
-     * @return array
      */
-    protected function serveRawAssets(Collection $collection, $group, $format)
-    {
+    protected function serveRawAssets(Collection $collection, string $group, ?string $format) : array {
         $responses = array();
 
-        foreach ($collection->getAssetsOnlyRaw($group) as $asset)
-        {
+        foreach ($collection->getAssetsOnlyRaw($group) as $asset) {
             $path = $asset->getRelativePath();
 
             $responses[] = $this->{'create'.studly_case($group).'Element'}($path, $format);
@@ -179,14 +130,11 @@ class Server {
      * Format an array of responses and return a string.
      *
      * @param  mixed  $args
-     * @return string
      */
-    protected function formatResponse()
-    {
+    protected function formatResponse() : string {
         $responses = array();
 
-        foreach (func_get_args() as $response)
-        {
+        foreach (func_get_args() as $response) {
             $responses = array_merge($responses, (array) $response);
         }
 
@@ -195,43 +143,27 @@ class Server {
 
     /**
      * Get a collection manifest entry.
-     *
-     * @param  \Basset\Collection  $collection
-     * @return \Basset\Manifest\Entry
      */
-    protected function getCollectionEntry(Collection $collection)
-    {
+    protected function getCollectionEntry(Collection $collection) : Entry {
         return $this->app['basset.manifest']->get($collection);
     }
 
     /**
      * Try the development build of a collection.
-     *
-     * @param  \Basset\Collection  $collection
-     * @param  string  $group
-     * @return void
      */
-    protected function tryDevelopmentBuild(Collection $collection, $group)
-    {
-        try
-        {
+    protected function tryDevelopmentBuild(Collection $collection, string $group) : void {
+        try {
             $this->app['basset.builder']->buildAsDevelopment($collection, $group);
-        }
-        catch (BuildNotRequiredException $e) {}
+        } catch (BuildNotRequiredException $e) {}
 
         $this->app['basset.builder.cleaner']->clean($collection->getIdentifier());
     }
 
     /**
      * Prefix the build path to a given path.
-     *
-     * @param  string  $path
-     * @return string
      */
-    protected function prefixBuildPath($path)
-    {
-        if ($buildPath = $this->app['config']->get('basset.build_path'))
-        {
+    protected function prefixBuildPath(string $path) : stirng {
+        if ($buildPath = $this->app['config']->get('basset.build_path')) {
             $path = "{$buildPath}/{$path}";
         }
 
@@ -240,46 +172,29 @@ class Server {
 
     /**
      * Determine if the application is running in production mode.
-     *
-     * @return bool
      */
-    protected function runningInProduction()
-    {
+    protected function runningInProduction() : bool {
         return in_array($this->app['env'], (array) $this->app['config']->get('basset.production'));
     }
 
     /**
      * Create a stylesheets element for the specified path.
-     *
-     * @param  string  $path
-     * @param  string  $format
-     * @return string
      */
-    protected function createStylesheetsElement($path, $format)
-    {
+    protected function createStylesheetsElement(string $path, ?string $format) : string {
         return sprintf($format ?: '<link rel="stylesheet" type="text/css" href="%s" />', $this->buildAssetUrl($path));
     }
 
     /**
      * Create a javascripts element for the specified path.
-     *
-     * @param  string  $path
-     * @param  string  $format
-     * @return string
      */
-    protected function createJavascriptsElement($path, $format)
-    {
+    protected function createJavascriptsElement(string $path, ?string $format) : string {
         return sprintf($format ?: '<script src="%s"></script>', $this->buildAssetUrl($path));
     }
 
     /**
      * Build the URL to an asset.
-     *
-     * @param  string  $path
-     * @return string
      */
-    public function buildAssetUrl($path)
-    {
+    public function buildAssetUrl(string $path) : string {
         return starts_with($path, '//') ? $path : $this->app['url']->asset($path);
     }
 

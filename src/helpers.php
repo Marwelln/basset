@@ -1,14 +1,10 @@
 <?php
 
-if ( ! function_exists('basset_stylesheets'))
-{
+if ( ! function_exists('basset_stylesheets')) {
     /**
      * Ouput the stylesheets for several collections.
-     * 
-     * @return string
      */
-    function basset_stylesheets()
-    {
+    function basset_stylesheets() : string {
         $c = array(); $a = func_get_args();
 
         array_walk_recursive($a, function($v, $k) use (&$c) { is_numeric($k) ? ($c["{$v}.css"] = null) : ($c["{$k}.css"] = $v); });
@@ -17,15 +13,11 @@ if ( ! function_exists('basset_stylesheets'))
     }
 }
 
-if ( ! function_exists('basset_javascripts'))
-{
+if ( ! function_exists('basset_javascripts')) {
     /**
      * Ouput the javascripts for several collections.
-     * 
-     * @return string
      */
-    function basset_javascripts()
-    {
+    function basset_javascripts() : string {
         $c = array(); $a = func_get_args();
 
         array_walk_recursive($a, function($v, $k) use (&$c) { is_numeric($k) ? ($c["{$v}.js"] = null) : ($c["{$k}.js"] = $v); });
@@ -34,21 +26,16 @@ if ( ! function_exists('basset_javascripts'))
     }
 }
 
-if ( ! function_exists('basset_assets'))
-{
+if ( ! function_exists('basset_assets')) {
     /**
      * Output the assets for a collection as defined by the extension.
-     * 
-     * @return string
      */
-    function basset_assets()
-    {
+    function basset_assets() : string {
         $collections = $responses = array(); $args = func_get_args();
 
         // If no arguments were supplied get all the collections and add both the stylesheet and javascript
         // flavors as arguments.
-        if (empty($args))
-        {
+        if (empty($args)) {
             foreach (app('basset')->all() as $identifier => $collection) $args[] = array("{$identifier}.css", "{$identifier}.js");
         }
 
@@ -60,15 +47,11 @@ if ( ! function_exists('basset_assets'))
     }
 }
 
-if ( ! function_exists('array_to_newlines'))
-{
+if ( ! function_exists('array_to_newlines')) {
     /**
      * Convert an array to a newline separated string.
-     * 
-     * @param  array  $array
-     * @return string
      */
-    function array_to_newlines(array $array)
+    function array_to_newlines(array $array) : string
     {
         return implode(PHP_EOL, $array);
     }
