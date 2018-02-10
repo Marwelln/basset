@@ -30,40 +30,24 @@ class Environment implements ArrayAccess {
 
     /**
      * Create a new environment instance.
-     *
-     * @param  \Basset\Factory\FactoryManager  $factory
-     * @param  \Basset\AssetFinder  $finder
-     * @return void
      */
-    public function __construct(FactoryManager $factory, AssetFinder $finder)
-    {
+    public function __construct(FactoryManager $factory, AssetFinder $finder) {
         $this->factory = $factory;
         $this->finder = $finder;
     }
 
     /**
      * Alias of \Basset\Environment::collection()
-     *
-     * @param  string  $name
-     * @param  \Closure  $callback
-     * @return \Basset\Collection
      */
-    public function make($name, Closure $callback = null)
-    {
+    public function make(string $name, ?Closure $callback = null) : Collection {
         return $this->collection($name, $callback);
     }
 
     /**
      * Create or return an existing collection.
-     *
-     * @param  string  $identifier
-     * @param  \Closure  $callback
-     * @return \Basset\Collection
      */
-    public function collection($identifier, Closure $callback = null)
-    {
-        if ( ! isset($this->collections[$identifier]))
-        {
+    public function collection(string $identifier, ?Closure $callback = null) : Collection {
+        if ( ! isset($this->collections[$identifier])) {
             $directory = $this->prepareDefaultDirectory();
 
             $this->collections[$identifier] = new Collection($directory, $identifier);
@@ -72,8 +56,7 @@ class Environment implements ArrayAccess {
         // If the collection has been given a callable closure then we'll execute the closure with
         // the collection instance being the only parameter given. This allows users to begin
         // using the collection instance to add assets.
-        if (is_callable($callback))
-        {
+        if (is_callable($callback)) {
             call_user_func($callback, $this->collections[$identifier]);
         }
 
@@ -82,11 +65,8 @@ class Environment implements ArrayAccess {
 
     /**
      * Prepare the default directory for a new collection.
-     * 
-     * @return \Basset\Directory
      */
-    protected function prepareDefaultDirectory()
-    {
+    protected function prepareDefaultDirectory() : Directory {
         $path = $this->finder->setWorkingDirectory('/');
 
         return new Directory($this->factory, $this->finder, $path);
@@ -94,36 +74,23 @@ class Environment implements ArrayAccess {
 
     /**
      * Get all collections.
-     *
-     * @return array
      */
-    public function all()
-    {
+    public function all() : array {
         return $this->collections;
     }
 
     /**
      * Determine if a collection exists.
-     *
-     * @param  string  $name
-     * @return bool
      */
-    public function has($name)
-    {
+    public function has(string $name) : bool {
         return isset($this->collections[$name]);
     }
 
     /**
      * Register a package with the environment.
-     * 
-     * @param  string  $package
-     * @param  string  $namespace
-     * @return void
      */
-    public function package($package, $namespace = null)
-    {
-        if (is_null($namespace))
-        {
+    public function package(string $package, ?string $namespace = null) : void {
+        if (is_null($namespace)) {
             list($vendor, $namespace) = explode('/', $package);
         }
 
@@ -132,14 +99,9 @@ class Environment implements ArrayAccess {
 
     /**
      * Register an array of collections.
-     * 
-     * @param  array  $collections
-     * @return void
      */
-    public function collections(array $collections)
-    {
-        foreach ($collections as $name => $callback)
-        {
+    public function collections(array $collections) : void {
+        foreach ($collections as $name => $callback) {
             $this->make($name, $callback);
         }
     }
@@ -149,12 +111,9 @@ class Environment implements ArrayAccess {
      *
      * @param  string  $offset
      * @param  mixed  $value
-     * @return void
      */
-    public function offsetSet($offset, $value)
-    {
-        if (is_null($offset))
-        {
+    public function offsetSet($offset, $value) : void {
+        if (is_null($offset)) {
             throw new InvalidArgumentException('Collection identifier not given.');
         }
 
@@ -165,10 +124,8 @@ class Environment implements ArrayAccess {
      * Get a collection offset.
      *
      * @param  string  $offset
-     * @return null|\Basset\Collection
      */
-    public function offsetGet($offset)
-    {
+    public function offsetGet($offset) : ?Collection {
         return $this->has($offset) ? $this->collection($offset) : null;
     }
 
@@ -176,10 +133,8 @@ class Environment implements ArrayAccess {
      * Unset a collection offset.
      *
      * @param  string  $offset
-     * @return void
      */
-    public function offsetUnset($offset)
-    {
+    public function offsetUnset($offset) : void {
         unset($this->collections[$offset]);
     }
 
@@ -187,10 +142,8 @@ class Environment implements ArrayAccess {
      * Determine if a collection offset exists.
      *
      * @param  string  $offset
-     * @return bool
      */
-    public function offsetExists($offset)
-    {
+    public function offsetExists($offset) : bool {
         return $this->has($offset);
     }
 
