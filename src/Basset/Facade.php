@@ -6,18 +6,13 @@ class Facade extends IlluminateFacade {
 
     /**
      * Get the registered name of the component.
-     *
-     * @return string
      */
-    protected static function getFacadeAccessor() { return 'basset'; }
+    protected static function getFacadeAccessor() : string { return 'basset'; }
 
     /**
      * Serve a collection or number of collections.
-     * 
-     * @return string
      */
-    public static function show()
-    {
+    public static function show() : string {
     	return basset_assets(func_get_args());
     }
 
