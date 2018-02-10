@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "kriswallsmith/assetic": "~1.4.1"
+        "marwelln/assetic": "~1.4.1"
     },
     "require-dev": {
         "mockery/mockery": ">=0.7.2",
