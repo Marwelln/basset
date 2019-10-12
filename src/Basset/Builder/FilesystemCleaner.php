@@ -5,12 +5,13 @@ use Basset\Environment;
 use Basset\Manifest\Entry;
 use Basset\Manifest\Manifest;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class FilesystemCleaner {
 
     /**
      * Basset environment instance.
-     * 
+     *
      * @var \Basset\Environment
      */
     protected $environment;
@@ -55,7 +56,7 @@ class FilesystemCleaner {
 
     /**
      * Clean all built collections and the manifest entries.
-     * 
+     *
      * @return void
      */
     public function cleanAll()
@@ -101,7 +102,7 @@ class FilesystemCleaner {
 
     /**
      * Cleans a built collections files removing any outdated builds.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  \Basset\Manifest\Entry  $entry
      * @return void
@@ -115,7 +116,7 @@ class FilesystemCleaner {
 
     /**
      * Clean the collections manifest entry files.
-     * 
+     *
      * @param  string  $collection
      * @param  \Basset\Manifest\Entry  $entry
      * @return void
@@ -139,7 +140,7 @@ class FilesystemCleaner {
 
     /**
      * Clean collection production files.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  \Basset\Manifest\Entry  $entry
      * @return void
@@ -156,7 +157,7 @@ class FilesystemCleaner {
 
     /**
      * Clean collection development files.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  \Basset\Manifest\Entry  $entry
      * @return void
@@ -176,7 +177,7 @@ class FilesystemCleaner {
 
     /**
      * Delete matching files from the wildcard glob search except the ignored file.
-     * 
+     *
      * @param  string  $wildcard
      * @param  array|string  $ignored
      * @return void
@@ -194,19 +195,19 @@ class FilesystemCleaner {
                     // needs to be kept.
                     foreach ((array) $ignored as $ignore)
                     {
-                        if (ends_with($path, $ignore)) continue 2;
+                        if (Str::endsWith($path, $ignore)) continue 2;
                     }
                 }
 
                 $this->files->delete($path);
             }
         }
-        
+
     }
 
     /**
      * Replace a fingerprint with a wildcard.
-     * 
+     *
      * @param  string  $value
      * @return string
      */
