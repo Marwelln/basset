@@ -3,6 +3,7 @@
 use Basset\Collection;
 use Basset\Manifest\Manifest;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use Basset\Exceptions\BuildNotRequiredException;
 
 class Builder {
