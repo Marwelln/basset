@@ -1,14 +1,16 @@
 <?php namespace Basset;
 
+use Illuminate\Support\Str;
+
 class Collection {
 
     /**
      * The default directory of the collection.
-     * 
+     *
      * @var \Basset\Directory
      */
     protected $directory;
-    
+
     /**
      * The collection identifier.
      *
@@ -31,7 +33,7 @@ class Collection {
 
     /**
      * Get all the assets filtered by a group and without the raw assets.
-     * 
+     *
      * @param  string  $group
      * @return \Illuminate\Support\Collection
      */
@@ -84,7 +86,7 @@ class Collection {
 
         foreach ($assets as $key => $asset)
         {
-            if ( ! $raw and $asset->isRaw() or ! is_null($group) and ! $asset->{'is'.ucfirst(str_singular($group))}())
+            if ( ! $raw and $asset->isRaw() or ! is_null($group) and ! $asset->{'is'.ucfirst(Str::singular($group))}())
             {
                 $assets->forget($key);
             }
@@ -105,7 +107,7 @@ class Collection {
 
     /**
      * Orders the array of assets as they were defined or on a user ordered basis.
-     * 
+     *
      * @param  \Basset\Asset  $asset
      * @param  array  $assets
      * @return void
@@ -140,7 +142,7 @@ class Collection {
 
     /**
      * Get the default directory.
-     * 
+     *
      * @return \Basset\Directory
      */
     public function getDefaultDirectory()
@@ -156,12 +158,12 @@ class Collection {
      */
     public function getExtension($group)
     {
-        return str_plural($group) == 'stylesheets' ? 'css' : 'js';
+        return Str::prular($group) == 'stylesheets' ? 'css' : 'js';
     }
 
     /**
      * Dynamically call methods on the default directory.
-     * 
+     *
      * @param  string  $method
      * @param  array  $parameters
      * @return mixed

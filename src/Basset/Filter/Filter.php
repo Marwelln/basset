@@ -159,7 +159,7 @@ class Filter {
                         $this->ignored = true;
                     }
                 }
-                elseif(str_is('nodePaths', $parameter->name))
+                elseif(Str::is('nodePaths', $parameter->name))
                 {
                     $this->setArgument($this->nodePaths, $key);
                 }
