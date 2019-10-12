@@ -6,6 +6,7 @@ use Assetic\Asset\StringAsset;
 use Basset\Factory\FactoryManager;
 use Assetic\Filter\FilterInterface;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class Asset extends Filterable {
@@ -353,7 +354,7 @@ class Asset extends Filterable {
      */
     public function rawOnEnvironment()
     {
-        $environments = array_flatten(func_get_args());
+        $environments = Arr::flatten(func_get_args());
 
         if (in_array($this->appEnvironment, $environments))
         {

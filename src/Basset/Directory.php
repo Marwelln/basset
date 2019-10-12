@@ -10,6 +10,7 @@ use RecursiveDirectoryIterator;
 use Basset\Factory\FactoryManager;
 use Basset\Exceptions\AssetNotFoundException;
 use Basset\Exceptions\DirectoryNotFoundException;
+use Illuminate\Support\Arr;
 
 class Directory extends Filterable {
 
@@ -43,7 +44,7 @@ class Directory extends Filterable {
 
     /**
      * Collection of nested directories.
-     * 
+     *
      * @var \Illuminate\Support\Collection
      */
     protected $directories;
@@ -59,7 +60,7 @@ class Directory extends Filterable {
     public function __construct(FactoryManager $factory, AssetFinder $finder, $path)
     {
         parent::__construct();
-        
+
         $this->factory = $factory;
         $this->finder = $finder;
         $this->path = $path;
@@ -105,7 +106,7 @@ class Directory extends Filterable {
 
     /**
      * Find and add a javascript asset to the directory.
-     * 
+     *
      * @param  string  $name
      * @param  \Closure  $callback
      * @return \Basset\Asset
@@ -122,7 +123,7 @@ class Directory extends Filterable {
 
     /**
      * Find and add a stylesheet asset to the directory.
-     * 
+     *
      * @param  string  $name
      * @param  \Closure  $callback
      * @return \Basset\Asset
@@ -243,7 +244,7 @@ class Directory extends Filterable {
 
     /**
      * Process a require of either the directory or tree.
-     * 
+     *
      * @param  \Iterator  $iterator
      * @return \Basset\Directory
      */
@@ -272,7 +273,7 @@ class Directory extends Filterable {
      */
     public function except($assets)
     {
-        $assets = array_flatten(func_get_args());
+        $assets = Arr::flatten(func_get_args());
 
         // Store the directory instance on a variable that we can inject into the scope of
         // the closure below. This allows us to call the path conversion method.
@@ -296,7 +297,7 @@ class Directory extends Filterable {
      */
     public function only($assets)
     {
-        $assets = array_flatten(func_get_args());
+        $assets = Arr::flatten(func_get_args());
 
         // Store the directory instance on a variable that we can inject into the scope of
         // the closure below. This allows us to call the path conversion method.
@@ -314,7 +315,7 @@ class Directory extends Filterable {
 
     /**
      * Get a path relative from the current directory's path.
-     * 
+     *
      * @param  string  $path
      * @return string
      */
@@ -329,7 +330,7 @@ class Directory extends Filterable {
 
     /**
      * All assets within directory will be served raw.
-     * 
+     *
      * @return \Basset\Directory
      */
     public function raw()
@@ -341,7 +342,7 @@ class Directory extends Filterable {
 
     /**
      * All assets within directory will be served raw on a given environment.
-     * 
+     *
      * @return \Basset\Directory
      */
     public function rawOnEnvironment($environment)
@@ -391,12 +392,12 @@ class Directory extends Filterable {
 
     /**
      * Get the current directories assets.
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getDirectoryAssets()
     {
         return $this->assets;
     }
-    
+
 }

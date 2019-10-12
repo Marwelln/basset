@@ -16,28 +16,28 @@ class Builder {
 
     /**
      * Basset manifest instance.
-     * 
+     *
      * @var \Basset\Manifest\Manifest
      */
     protected $manifest;
 
     /**
      * Path to built collections.
-     * 
+     *
      * @var string
      */
     protected $buildPath;
 
     /**
      * Indicates if the build will be pre-gzipped.
-     * 
+     *
      * @var bool
      */
     protected $gzip = false;
 
     /**
      * Indicates if the build will be forced.
-     * 
+     *
      * @var bool
      */
     protected $force = false;
@@ -62,7 +62,7 @@ class Builder {
 
     /**
      * Build a production collection.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  string  $group
      * @return void
@@ -110,7 +110,7 @@ class Builder {
 
     /**
      * Build a development collection.
-     * 
+     *
      * @param  \Basset\Collection  $collection
      * @param  string  $group
      * @return void
@@ -166,7 +166,7 @@ class Builder {
 
     /**
      * Determine if the collections definition has changed when compared to the manifest.
-     * 
+     *
      * @param  \Illuminate\Support\Collection  $assets
      * @param  \Basset\Manifest\Entry  $entry
      * @param  string  $group
@@ -185,7 +185,7 @@ class Builder {
         // an array of relative paths that we can compare from.
         $manifest = $entry->getDevelopmentAssets($group);
 
-        $manifest = array_flatten(array_keys($manifest));
+        $manifest = Arr::flatten(array_keys($manifest));
 
         // Compute the difference between the collections assets and the manifests assets. If we get
         // an array of values then the collection has changed since the last build and everything
@@ -197,7 +197,7 @@ class Builder {
 
     /**
      * Make the build path if it does not exist.
-     * 
+     *
      * @return void
      */
     protected function makeBuildPath()
@@ -211,7 +211,7 @@ class Builder {
     /**
      * If Gzipping is enabled the the zlib extension is loaded we'll Gzip the contents
      * with a maximum compression level of 9.
-     * 
+     *
      * @param  string  $contents
      * @return string
      */
@@ -227,7 +227,7 @@ class Builder {
 
     /**
      * Set built collections to be gzipped.
-     * 
+     *
      * @param  bool  $gzip
      * @return \Basset\Builder\Builder
      */
