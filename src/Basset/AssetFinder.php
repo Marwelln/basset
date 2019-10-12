@@ -2,6 +2,7 @@
 
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Basset\Exceptions\AssetExistsException;
 use Basset\Exceptions\AssetNotFoundException;
 use Basset\Exceptions\DirectoryNotFoundException;
@@ -84,7 +85,7 @@ class AssetFinder {
      */
     public function findRemotelyHosted($name)
     {
-        if (filter_var($name, FILTER_VALIDATE_URL) or starts_with($name, '//'))
+        if (filter_var($name, FILTER_VALIDATE_URL) or Str::startsWith($name, '//'))
         {
             return $name;
         }

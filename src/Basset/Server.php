@@ -4,6 +4,7 @@ use Basset\Collection;
 use Basset\Manifest\Entry;
 use Basset\Manifest\Manifest;
 use Basset\Exceptions\BuildNotRequiredException;
+use Illuminate\Support\Str;
 
 class Server {
 
@@ -195,7 +196,7 @@ class Server {
      * Build the URL to an asset.
      */
     public function buildAssetUrl(string $path) : string {
-        return starts_with($path, '//') ? $path : $this->app['url']->asset($path);
+        return Str::startsWith($path, '//') ? $path : $this->app['url']->asset($path);
     }
 
 }

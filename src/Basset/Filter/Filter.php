@@ -5,6 +5,7 @@ use Basset\Asset;
 use ReflectionClass;
 use ReflectionException;
 use Illuminate\Log\Logger;
+use Illuminate\Support\Str;
 use Assetic\Filter\FilterInterface;
 use Symfony\Component\Process\ExecutableFinder;
 
@@ -40,49 +41,49 @@ class Filter {
 
     /**
      * Array of filter requirements.
-     * 
+     *
      * @var array
      */
     protected $requirements = array();
 
     /**
      * Array of node module paths.
-     * 
+     *
      * @var array
      */
     protected $nodePaths = array();
 
     /**
      * Array of valid executable argument suffixes.
-     * 
+     *
      * @var array
      */
     protected $validSuffixes = array('bin', 'path');
 
     /**
      * Indicates if the filter should be ignored when building assets.
-     * 
+     *
      * @var bool
      */
     protected $ignored = false;
 
     /**
      * Application working environment.
-     * 
+     *
      * @var string
      */
     protected $appEnvironment;
 
     /**
      * Illuminate log writer instance.
-     * 
+     *
      * @var \Illuminate\Log\Logger
      */
     protected $log;
 
     /**
      * Indicates if the build is a production build.
-     * 
+     *
      * @var bool
      */
     protected $production = false;
@@ -106,7 +107,7 @@ class Filter {
 
     /**
      * Find and set any missing constructor arguments.
-     * 
+     *
      * @return \Basset\Filter\Filter
      */
     public function findMissingConstructorArgs()
@@ -170,7 +171,7 @@ class Filter {
 
     /**
      * Get an environment variable.
-     * 
+     *
      * @param  string  $key
      * @return string|bool
      */
@@ -181,7 +182,7 @@ class Filter {
 
     /**
      * Convert a constructor parameter to snake case and all lowercase.
-     * 
+     *
      * @param  string  $name
      * @return string
      */
@@ -192,7 +193,7 @@ class Filter {
 
     /**
      * Get an executable finder instance.
-     * 
+     *
      * @return \Symfony\Component\Process\ExecutableFinder
      */
     public function getExecutableFinder()
@@ -202,7 +203,7 @@ class Filter {
 
     /**
      * Add a requirement to the filter.
-     * 
+     *
      * @param  \Closure  $callback
      * @return \Basset\Filter\Filter
      */
@@ -215,7 +216,7 @@ class Filter {
 
     /**
      * Add a class exists requirement to the filter.
-     * 
+     *
      * @param  string  $class
      * @return \Basset\Filter\Filter
      */
@@ -229,7 +230,7 @@ class Filter {
 
     /**
      * Add a asset name pattern requirement to the filter.
-     * 
+     *
      * @param  string  $pattern
      * @return \Basset\Filter\Filter
      */
@@ -286,7 +287,7 @@ class Filter {
 
     /**
      * Add a production build requirement to the filter.
-     * 
+     *
      * @return \Basset\Filter\Filter
      */
     public function whenProductionBuild()
@@ -299,7 +300,7 @@ class Filter {
 
     /**
      * Add a development build requirement to the filter.
-     * 
+     *
      * @return \Basset\Filter\Filter
      */
     public function whenDevelopmentBuild()
@@ -325,7 +326,7 @@ class Filter {
 
     /**
      * Determine if the filter has an instantiation argument at a given position.
-     * 
+     *
      * @param  int  $position
      * @return bool
      */
@@ -336,7 +337,7 @@ class Filter {
 
     /**
      * Set a single instantiation argument.
-     * 
+     *
      * @param  string  $argument
      * @param  int  $position
      * @return \Basset\Filter\Filter
@@ -362,7 +363,7 @@ class Filter {
 
     /**
      * Set the resource on the filter.
-     * 
+     *
      * @param  \Basset\Filter\Filterable  $resource
      * @return \Basset\Filter\Filter
      */
@@ -415,7 +416,7 @@ class Filter {
 
     /**
      * Determine if filter is ignored.
-     * 
+     *
      * @return bool
      */
     public function isIgnored()
@@ -491,7 +492,7 @@ class Filter {
 
     /**
      * Process any requirements on the filter.
-     * 
+     *
      * @return bool
      */
     public function processRequirements()
@@ -509,7 +510,7 @@ class Filter {
 
     /**
      * Get the filter requirements.
-     * 
+     *
      * @return array
      */
     public function getRequirements()
@@ -519,7 +520,7 @@ class Filter {
 
     /**
      * Set the production build indicator.
-     * 
+     *
      * @param  bool  $production
      * @return \Basset\Filter\Filter
      */
@@ -532,7 +533,7 @@ class Filter {
 
     /**
      * Get the production build indicator.
-     * 
+     *
      * @return bool
      */
     public function getProduction()
@@ -542,7 +543,7 @@ class Filter {
 
     /**
      * Get the array of node paths.
-     * 
+     *
      * @return array
      */
     public function getNodePaths()
@@ -562,10 +563,10 @@ class Filter {
         // If the method starts with "andWhen" then we'll call the method without
         // the "and" as this provides some syntactical sugar when chaining
         // filter requirements.
-        if (starts_with($method, 'andWhen'))
+        if (Str::startsWith($method, 'andWhen'))
         {
             $method = lcfirst(substr($method, 3));
-            
+
             return call_user_func_array(array($this, $method), $parameters);
         }
 

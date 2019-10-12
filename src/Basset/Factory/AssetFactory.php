@@ -2,6 +2,7 @@
 
 use Basset\Asset;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class AssetFactory extends Factory {
 
@@ -14,7 +15,7 @@ class AssetFactory extends Factory {
 
     /**
      * Application environment.
-     * 
+     *
      * @var string
      */
     protected $appEnvironment;
@@ -28,7 +29,7 @@ class AssetFactory extends Factory {
 
     /**
      * Number of assets produced by the factory.
-     * 
+     *
      * @var int
      */
     protected $assetsProduced = 0;
@@ -92,7 +93,7 @@ class AssetFactory extends Factory {
 
         // If the asset is not a remote asset then we'll trim the relative path even further to remove
         // any unnecessary leading or trailing slashes. This will leave us with a nice relative path.
-        if ( ! starts_with($path, '//') and ! (bool) filter_var($path, FILTER_VALIDATE_URL))
+        if ( ! Str::startsWith($path, '//') and ! (bool) filter_var($path, FILTER_VALIDATE_URL))
         {
             $relativePath = trim($relativePath, '/');
 
@@ -112,7 +113,7 @@ class AssetFactory extends Factory {
 
     /**
      * Get the next asset order.
-     * 
+     *
      * @return int
      */
     protected function nextAssetOrder()
