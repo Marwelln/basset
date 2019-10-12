@@ -99,7 +99,7 @@ class AssetFinder {
      */
     public function findPackageAsset($name)
     {
-        if (str_contains($name, '::'))
+        if (Str::contains($name, '::'))
         {
             list($namespace, $name) = explode('::', $name);
 
