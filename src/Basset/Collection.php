@@ -158,7 +158,7 @@ class Collection {
      */
     public function getExtension($group)
     {
-        return Str::prular($group) == 'stylesheets' ? 'css' : 'js';
+        return Str::plural($group) == 'stylesheets' ? 'css' : 'js';
     }
 
     /**
