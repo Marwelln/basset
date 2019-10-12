@@ -79,7 +79,7 @@ class Server {
 
         $fingerprint = $entry->getProductionFingerprint($group);
 
-        $production = $this->{'create'.studly_case($group).'Element'}($this->prefixBuildPath($fingerprint), $format);
+        $production = $this->{'create'.Str::studly($group).'Element'}($this->prefixBuildPath($fingerprint), $format);
 
         return $this->formatResponse($this->serveRawAssets($collection, $group, $format), $production);
     }
@@ -106,7 +106,7 @@ class Server {
                 $path = $asset->getRelativePath();
             }
 
-            $responses[] = $this->{'create'.studly_case($group).'Element'}($path, $format);
+            $responses[] = $this->{'create'.Str::studly($group).'Element'}($path, $format);
         }
 
         return $this->formatResponse($responses);
@@ -121,7 +121,7 @@ class Server {
         foreach ($collection->getAssetsOnlyRaw($group) as $asset) {
             $path = $asset->getRelativePath();
 
-            $responses[] = $this->{'create'.studly_case($group).'Element'}($path, $format);
+            $responses[] = $this->{'create'.Str::studly($group).'Element'}($path, $format);
         }
 
         return $responses;
